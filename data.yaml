@@ -1,0 +1,7 @@
+path: ./dataset_temp
+train: images/train
+val: images/train   # For a minimal draft model, validating on train images is perfectly fine
+
+names:
+  0: target_body
+  1: ballistic_shot_zone

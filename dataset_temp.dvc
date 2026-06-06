@@ -1,0 +1,6 @@
+outs:
+- md5: 251c0076013cd52dcb24742321788b75.dir
+  size: 371149868
+  nfiles: 519
+  hash: md5
+  path: dataset_temp
