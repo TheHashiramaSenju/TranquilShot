@@ -28,8 +28,7 @@ def run_mini_sync():
         # Skip the generic classes file if it exists
         if full_label_name == "classes.txt":
             continue
-            
-        # Strip off the DagsHub custom hash prefix to restore original filename
+        
         # Example: '00573502__frame_000064.txt' -> 'frame_000064.txt'
         if "__" in full_label_name:
             original_base_name = full_label_name.split("__")[1]
@@ -38,7 +37,6 @@ def run_mini_sync():
             
         destination_label_path = os.path.join(target_lbl_dir, original_base_name)
 
-        # Copy the label directly into dataset_temp/labels/train/
         shutil.copy(label_path, destination_label_path)
         paired_count += 1
 
