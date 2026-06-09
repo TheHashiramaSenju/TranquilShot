@@ -1,6 +1,5 @@
-path: ./dataset_temp
-train: images/train
-val: images/train   # For a minimal draft model, validating on train images is perfectly fine
+train: /media/notshadow/d5dd988b-c393-4302-aa45-32bcfc8463c2/WorkFolder/TranquilShot/dataset_trainer/images
+val: /media/notshadow/d5dd988b-c393-4302-aa45-32bcfc8463c2/WorkFolder/TranquilShot/dataset_trainer/images
 
 names:
   0: target_body

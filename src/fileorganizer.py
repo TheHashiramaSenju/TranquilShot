@@ -1,9 +1,9 @@
 import os 
 import shutil
 
-img_dir = "../dataset_preprocessed"
-label_dir = "../dataset_trainer/labels"
-output_dir = "../dataset_trainer/images"
+img_dir = "/media/notshadow/d5dd988b-c393-4302-aa45-32bcfc8463c2/WorkFolder/TranquilShot/dataset_preprocessed/images/train"
+label_dir = "/media/notshadow/d5dd988b-c393-4302-aa45-32bcfc8463c2/WorkFolder/TranquilShot/dataset_trainer/labels"
+output_dir = "/media/notshadow/d5dd988b-c393-4302-aa45-32bcfc8463c2/WorkFolder/TranquilShot/dataset_trainer/images"
 
 os.makedirs(output_dir, exist_ok=True)
 
@@ -27,3 +27,23 @@ for root, dirs, files in os.walk(img_dir):
             shutil.copy(full_img_path, os.path.join(output_dir, filename))
 
 print(f"Found and processed {len(matched_images)} matching images.")
+
+'''
+# we can also use slicing here 
+
+filename = "image14.jpg"
+# 1. Get the base name -> "image14"
+base_name = os.path.splitext(filename)[0]
+just_the_number = base_name[5:]
+print(just_the_number)
+
+
+
+## we can use digit filtering
+
+filename = "frame105.jpg"
+base_name = os.path.splitext(filename)[0]
+just_the_number = "".join([char for char in base_name if char.isdigit])
+print("Just the number")
+'''
+

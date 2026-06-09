@@ -1,0 +1,6 @@
+train: /media/notshadow/d5dd988b-c393-4302-aa45-32bcfc8463c2/WorkFolder/TranquilShot/dataset_preprocessed/images/train
+val: /media/notshadow/d5dd988b-c393-4302-aa45-32bcfc8463c2/WorkFolder/TranquilShot/dataset_preprocessed/images/val
+
+names:
+  0: target_body
+  1: ballistic_shot_zone
