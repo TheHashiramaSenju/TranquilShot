@@ -1,11 +1,10 @@
 from ultralytics import YOLO
-import yaml
-
+import os
 
 model = YOLO('yolov8n.pt')
 
 results = model.train(
-    data="data.yaml",
+    data="data2.yaml",
     epochs=100,
     patience=15,          # Slightly higher patience so it doesn't quit too early
     batch=8,
