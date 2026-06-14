@@ -1,0 +1,6 @@
+tracker_node:
+  ros__parameters:
+    process_noise: 0.01
+    measurement_noise: 0.1
+    max_lost_frames: 15
+    min_distance_switch_m: 2.0

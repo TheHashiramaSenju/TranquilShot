@@ -1,0 +1,4 @@
+float32 fire_range_m
+---
+bool    success
+float32 applied_fire_range_m

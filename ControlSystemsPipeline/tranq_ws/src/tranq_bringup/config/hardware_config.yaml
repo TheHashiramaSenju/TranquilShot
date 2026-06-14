@@ -1,0 +1,6 @@
+use_sim_time: false
+detector_node:
+  ros__parameters:
+    model_path: "/media/notshadow/d5dd988b-c393-4302-aa45-32bcfc8463c2/WorkFolder/TranquilShot/ComputerVisionPipeline/runs/detect/train-6/weights/best.pt"
+    backend: "ultralytics"
+    use_coral_tpu: false

@@ -1,0 +1,12 @@
+controller_node:
+  ros__parameters:
+    kp_yaw: 0.005
+    ki_yaw: 0.0001
+    kd_yaw: 0.001
+    kp_pitch: 0.005
+    ki_pitch: 0.0001
+    kd_pitch: 0.001
+    dead_band_px: 5.0
+    frame_width: 640
+    frame_height: 480
+    output_clamp: 0.5

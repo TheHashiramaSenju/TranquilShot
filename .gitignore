@@ -217,7 +217,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
-/dataset_preprocessed
+
 /dataset_raw
 /dataset_processed
 /project-1-at-2026-06-05-14-06-c3f81476.zip
@@ -236,3 +236,7 @@ ComputerVisionPipeline/dataset_preprocessed.zip
 ComputerVisionPipeline/annotation_dataset
 ComputerVisionPipeline/autoannotatelogs
 ComputerVisionPipeline/dataset_raw
+fix_and_build.sh
+fix_and_build2.sh
+fix_and_build3.sh
+setup_control_systems.sh

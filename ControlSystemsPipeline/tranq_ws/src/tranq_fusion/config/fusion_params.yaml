@@ -1,0 +1,11 @@
+fusion_node:
+  ros__parameters:
+    depth_min_m: 0.5
+    depth_max_m: 30.0
+    depth_variance_threshold: 0.15
+    size_tolerance: 0.15
+    elephant_height_m: 2.5
+    optical_flow_threshold: 0.8
+    confidence_threshold: 0.70
+    temporal_persist_frames: 3
+    camera_focal_length_px: 480.0
