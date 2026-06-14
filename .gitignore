@@ -231,5 +231,3 @@ project-1-at-2026-06-08-13-25-580b5723.zip
 runs/detect/train-6
 yolov8n.pt
 yolo26n.pt
-*.txt
-ComputerVisionPipeline/dataset_preprocessed.zip
