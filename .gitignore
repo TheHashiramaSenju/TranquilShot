@@ -233,3 +233,6 @@ yolov8n.pt
 yolo26n.pt
 ComputerVisionPipeline/dataset_preprocessed.zip
 *.txt
+ComputerVisionPipeline/annotation_dataset
+ComputerVisionPipeline/autoannotatelogs
+ComputerVisionPipeline/dataset_raw
