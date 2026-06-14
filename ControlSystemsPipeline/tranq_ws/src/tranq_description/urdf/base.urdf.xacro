@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="tranq_drone">
+  <link name="base_footprint"/>
+  <joint name="base_footprint_joint" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="2.0"/>
+      <inertia ixx="0.04" ixy="0.0" ixz="0.0" iyy="0.04" iyz="0.0" izz="0.06"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><box size="0.36 0.36 0.08"/></geometry>
+      <material name="dark_grey"><color rgba="0.18 0.18 0.20 1"/></material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><box size="0.36 0.36 0.08"/></geometry>
+    </collision>
+  </link>
+
+  <link name="arm_front_left"><visual><geometry><cylinder radius="0.015" length="0.28"/></geometry><origin xyz="0.1 0.1 0" rpy="0 1.5708 0.7854"/><material name="arm"><color rgba="0.75 0.2 0.2 1"/></material></visual></link>
+  <link name="arm_front_right"><visual><geometry><cylinder radius="0.015" length="0.28"/></geometry><origin xyz="0.1 -0.1 0" rpy="0 1.5708 -0.7854"/><material name="arm"><color rgba="0.2 0.75 0.2 1"/></material></visual></link>
+  <link name="arm_rear_left"><visual><geometry><cylinder radius="0.015" length="0.28"/></geometry><origin xyz="-0.1 0.1 0" rpy="0 1.5708 -0.7854"/><material name="arm"><color rgba="0.2 0.2 0.75 1"/></material></visual></link>
+  <link name="arm_rear_right"><visual><geometry><cylinder radius="0.015" length="0.28"/></geometry><origin xyz="-0.1 -0.1 0" rpy="0 1.5708 0.7854"/><material name="arm"><color rgba="0.75 0.75 0.2 1"/></material></visual></link>
+
+  <joint name="j1" type="fixed"><parent link="base_link"/><child link="arm_front_left"/><origin xyz="0 0 0" rpy="0 0 0"/></joint>
+  <joint name="j2" type="fixed"><parent link="base_link"/><child link="arm_front_right"/><origin xyz="0 0 0" rpy="0 0 0"/></joint>
+  <joint name="j3" type="fixed"><parent link="base_link"/><child link="arm_rear_left"/><origin xyz="0 0 0" rpy="0 0 0"/></joint>
+  <joint name="j4" type="fixed"><parent link="base_link"/><child link="arm_rear_right"/><origin xyz="0 0 0" rpy="0 0 0"/></joint>
+</robot>

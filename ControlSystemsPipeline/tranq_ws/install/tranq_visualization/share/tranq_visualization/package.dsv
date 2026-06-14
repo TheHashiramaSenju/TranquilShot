@@ -1,0 +1,9 @@
+source;share/tranq_visualization/hook/pythonpath.ps1
+source;share/tranq_visualization/hook/pythonpath.dsv
+source;share/tranq_visualization/hook/pythonpath.sh
+source;share/tranq_visualization/hook/ament_prefix_path.ps1
+source;share/tranq_visualization/hook/ament_prefix_path.dsv
+source;share/tranq_visualization/hook/ament_prefix_path.sh
+source;../../build/tranq_visualization/share/tranq_visualization/hook/pythonpath_develop.ps1
+source;../../build/tranq_visualization/share/tranq_visualization/hook/pythonpath_develop.dsv
+source;../../build/tranq_visualization/share/tranq_visualization/hook/pythonpath_develop.sh

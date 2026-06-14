@@ -1,35 +1,8 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="tranq_drone">
+  <xacro:include filename="$(find tranq_description)/urdf/base.urdf.xacro"/>
   <xacro:include filename="$(find tranq_description)/urdf/sensors.urdf.xacro"/>
-
-  <link name="base_link">
-    <inertial>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <mass value="1.5"/>
-      <inertia ixx="0.03" ixy="0.0" ixz="0.0" iyy="0.03" iyz="0.0" izz="0.05"/>
-    </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry><box size="0.35 0.35 0.08"/></geometry>
-      <material name="dark_grey"><color rgba="0.2 0.2 0.2 1"/></material>
-    </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry><box size="0.35 0.35 0.08"/></geometry>
-    </collision>
-  </link>
-
   <xacro:camera_sensor parent="base_link"/>
-  <xacro:tof_sensor parent="base_link"
-    name="tof_center" topic="/range_1"
-    xyz="0.15 0.0 -0.02" rpy="0 1.5708 0"/>
-  <xacro:tof_sensor parent="base_link"
-    name="tof_offset" topic="/range_2"
-    xyz="0.15 0.0 -0.12" rpy="0 1.5708 0"/>
-
-  <gazebo>
-    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-      <robotNamespace>/tranq_drone</robotNamespace>
-    </plugin>
-  </gazebo>
+  <xacro:tof_sensor parent="base_link" name="tof_center" topic="/range_1" xyz="0.18 0.0 -0.02" rpy="0 1.5708 0"/>
+  <xacro:tof_sensor parent="base_link" name="tof_offset" topic="/range_2" xyz="0.18 0.0 -0.12" rpy="0 1.5708 0"/>
 </robot>

@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <sdf version="1.9">
   <world name="elephant_field">
-
     <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics"/>
     <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster"/>
     <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
@@ -9,81 +8,101 @@
     </plugin>
     <plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands"/>
 
+    <physics type="ignored">
+      <max_step_size>0.004</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+
+    <scene>
+      <ambient>0.85 0.85 0.85 1</ambient>
+      <background>0.74 0.88 0.98 1</background>
+      <grid>false</grid>
+      <shadows>true</shadows>
+    </scene>
+
     <light type="directional" name="sun">
       <cast_shadows>true</cast_shadows>
-      <pose>0 0 100 0 -0 0</pose>
-      <diffuse>0.8 0.8 0.8 1</diffuse>
-      <specular>0.2 0.2 0.2 1</specular>
-      <direction>-0.5 0.1 -0.9</direction>
+      <pose>0 0 100 0 0 0</pose>
+      <diffuse>0.95 0.95 0.95 1</diffuse>
+      <specular>0.25 0.25 0.25 1</specular>
+      <direction>-0.35 0.1 -0.9</direction>
     </light>
 
     <model name="ground_plane">
       <static>true</static>
       <link name="link">
         <collision name="collision">
-          <geometry><plane><normal>0 0 1</normal><size>200 200</size></plane></geometry>
+          <geometry><plane><normal>0 0 1</normal><size>250 250</size></plane></geometry>
         </collision>
         <visual name="visual">
-          <geometry><plane><normal>0 0 1</normal><size>200 200</size></plane></geometry>
+          <geometry><plane><normal>0 0 1</normal><size>250 250</size></plane></geometry>
           <material>
-            <ambient>0.4 0.6 0.2 1</ambient>
-            <diffuse>0.4 0.6 0.2 1</diffuse>
+            <ambient>0.38 0.55 0.28 1</ambient>
+            <diffuse>0.38 0.55 0.28 1</diffuse>
           </material>
         </visual>
       </link>
     </model>
 
-    <!-- Near elephant: 8m — primary target -->
     <model name="near_elephant">
       <static>true</static>
-      <pose>8 0 1.0 0 0 0</pose>
-      <link name="link">
-        <collision name="col"><geometry><box><size>3.2 1.4 2.0</size></box></geometry></collision>
-        <visual name="vis">
-          <geometry><box><size>3.2 1.4 2.0</size></box></geometry>
-          <material><ambient>0.45 0.35 0.25 1</ambient><diffuse>0.45 0.35 0.25 1</diffuse></material>
+      <pose>8 0 1.0 0 0 0.05</pose>
+      <link name="body">
+        <collision name="collision_body"><geometry><box><size>3.2 1.5 2.0</size></box></geometry></collision>
+        <collision name="collision_head"><pose>1.55 0 0.2 0 0 0</pose><geometry><sphere><radius>0.55</radius></sphere></geometry></collision>
+        <visual name="torso">
+          <geometry><box><size>3.2 1.5 2.0</size></box></geometry>
+          <material><ambient>0.52 0.42 0.32 1</ambient><diffuse>0.52 0.42 0.32 1</diffuse></material>
         </visual>
+        <visual name="head">
+          <pose>1.55 0 0.2 0 0 0</pose>
+          <geometry><sphere><radius>0.55</radius></sphere></geometry>
+          <material><ambient>0.48 0.39 0.30 1</ambient><diffuse>0.48 0.39 0.30 1</diffuse></material>
+        </visual>
+        <visual name="trunk">
+          <pose>2.0 0 -0.35 0 0 0</pose>
+          <geometry><cylinder><radius>0.16</radius><length>1.0</length></cylinder></geometry>
+          <material><ambient>0.42 0.34 0.27 1</ambient><diffuse>0.42 0.34 0.27 1</diffuse></material>
+        </visual>
+        <visual name="leg1"><pose>-0.9 0.55 -1.0 0 0 0</pose><geometry><cylinder><radius>0.22</radius><length>1.7</length></cylinder></geometry><material><ambient>0.40 0.32 0.25 1</ambient><diffuse>0.40 0.32 0.25 1</diffuse></material></visual>
+        <visual name="leg2"><pose>-0.2 -0.55 -1.0 0 0 0</pose><geometry><cylinder><radius>0.22</radius><length>1.7</length></cylinder></geometry><material><ambient>0.40 0.32 0.25 1</ambient><diffuse>0.40 0.32 0.25 1</diffuse></material></visual>
+        <visual name="leg3"><pose>0.6 0.55 -1.0 0 0 0</pose><geometry><cylinder><radius>0.22</radius><length>1.7</length></cylinder></geometry><material><ambient>0.40 0.32 0.25 1</ambient><diffuse>0.40 0.32 0.25 1</diffuse></material></visual>
+        <visual name="leg4"><pose>1.2 -0.55 -1.0 0 0 0</pose><geometry><cylinder><radius>0.22</radius><length>1.7</length></cylinder></geometry><material><ambient>0.40 0.32 0.25 1</ambient><diffuse>0.40 0.32 0.25 1</diffuse></material></visual>
       </link>
     </model>
 
-    <!-- Far elephant: 22m — must be ranked lower by tracker -->
     <model name="far_elephant">
       <static>true</static>
-      <pose>22 3 1.0 0 0 0</pose>
-      <link name="link">
-        <collision name="col"><geometry><box><size>3.2 1.4 2.0</size></box></geometry></collision>
-        <visual name="vis">
-          <geometry><box><size>3.2 1.4 2.0</size></box></geometry>
-          <material><ambient>0.45 0.35 0.25 1</ambient><diffuse>0.45 0.35 0.25 1</diffuse></material>
-        </visual>
+      <pose>22 3 1.0 0 0 -0.15</pose>
+      <link name="body">
+        <collision name="collision_body"><geometry><box><size>3.2 1.5 2.0</size></box></geometry></collision>
+        <visual name="torso"><geometry><box><size>3.2 1.5 2.0</size></box></geometry><material><ambient>0.46 0.38 0.30 1</ambient><diffuse>0.46 0.38 0.30 1</diffuse></material></visual>
+        <visual name="head"><pose>1.55 0 0.2 0 0 0</pose><geometry><sphere><radius>0.55</radius></sphere></geometry><material><ambient>0.42 0.34 0.26 1</ambient><diffuse>0.42 0.34 0.26 1</diffuse></material></visual>
+        <visual name="trunk"><pose>2.0 0 -0.35 0 0 0</pose><geometry><cylinder><radius>0.16</radius><length>1.0</length></cylinder></geometry><material><ambient>0.38 0.31 0.25 1</ambient><diffuse>0.38 0.31 0.25 1</diffuse></material></visual>
       </link>
     </model>
 
-    <!-- Flat poster: 6m — depth variance = 0, Gate 2 must reject this -->
     <model name="elephant_poster">
       <static>true</static>
-      <pose>6 -5 1.0 0 0 0.3</pose>
-      <link name="link">
-        <collision name="col"><geometry><box><size>2.5 0.02 2.0</size></box></geometry></collision>
-        <visual name="vis">
-          <geometry><box><size>2.5 0.02 2.0</size></box></geometry>
-          <material><ambient>0.9 0.9 0.9 1</ambient><diffuse>0.9 0.9 0.9 1</diffuse></material>
+      <pose>6 -5 1.2 0 0 0.33</pose>
+      <link name="board">
+        <collision name="col"><geometry><box><size>2.8 0.03 2.2</size></box></geometry></collision>
+        <visual name="panel">
+          <geometry><box><size>2.8 0.03 2.2</size></box></geometry>
+          <material><ambient>0.82 0.82 0.82 1</ambient><diffuse>0.82 0.82 0.82 1</diffuse></material>
         </visual>
+        <visual name="stand1"><pose>-0.8 0 -1.4 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>2.6</length></cylinder></geometry><material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material></visual>
+        <visual name="stand2"><pose>0.8 0 -1.4 0 0 0</pose><geometry><cylinder><radius>0.05</radius><length>2.6</length></cylinder></geometry><material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material></visual>
       </link>
     </model>
 
-    <!-- Spawn pad at origin -->
     <model name="spawn_pad">
       <static>true</static>
       <pose>0 0 0 0 0 0</pose>
       <link name="link">
-        <collision name="col"><geometry><cylinder><radius>0.5</radius><length>0.05</length></cylinder></geometry></collision>
-        <visual name="vis">
-          <geometry><cylinder><radius>0.5</radius><length>0.05</length></cylinder></geometry>
-          <material><ambient>0.2 0.2 0.8 1</ambient><diffuse>0.2 0.2 0.8 1</diffuse></material>
-        </visual>
+        <collision name="col"><geometry><cylinder><radius>0.7</radius><length>0.08</length></cylinder></geometry></collision>
+        <visual name="vis"><geometry><cylinder><radius>0.7</radius><length>0.08</length></cylinder></geometry><material><ambient>0.18 0.28 0.9 1</ambient><diffuse>0.18 0.28 0.9 1</diffuse></material></visual>
       </link>
     </model>
-
   </world>
 </sdf>

@@ -240,3 +240,4 @@ fix_and_build.sh
 fix_and_build2.sh
 fix_and_build3.sh
 setup_control_systems.sh
+upgrade_tranquilshot_sim.sh
