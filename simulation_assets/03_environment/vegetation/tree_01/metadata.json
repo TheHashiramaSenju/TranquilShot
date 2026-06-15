@@ -1,0 +1,15 @@
+{
+  "asset_id": "ENV_VEG_TREE_01",
+  "name": "tree_01",
+  "category": "vegetation",
+  "status": "EMPTY — fill this slot",
+  "mesh_file": "mesh/tree_01.dae",
+  "mesh_up_axis": "Z",
+  "mesh_units": "meters",
+  "is_static": true,
+  "season": "dry",
+  "biome": "african_savannah",
+  "license": "FILL",
+  "source_url": "FILL",
+  "notes": "FILL"
+}

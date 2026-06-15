@@ -1,0 +1,25 @@
+{
+  "asset_id": "ENV_001",
+  "name": "terrain",
+  "category": "terrain",
+  "status": "EMPTY — fill this slot",
+  "real_dimensions_m": {
+    "size_x": 250,
+    "size_y": 250
+  },
+  "mesh_file": "mesh/terrain.dae",
+  "heightmap_file": "mesh/heightmap.png",
+  "heightmap_size_px": 257,
+  "max_elevation_m": 12.0,
+  "textures": {
+    "ground_albedo": "textures/savannah_ground.png",
+    "ground_normal": "textures/savannah_ground_normal.png"
+  },
+  "mesh_up_axis": "Z",
+  "mesh_units": "meters",
+  "is_static": true,
+  "environment_type": "african_savannah",
+  "license": "FILL",
+  "source_url": "FILL",
+  "notes": "Heightmap must be grayscale PNG, square, size must be (2^n)+1: 129, 257, or 513px"
+}

@@ -1,0 +1,13 @@
+{
+  "asset_id": "ENV_STRUCT_BASE_LAUNCHPAD",
+  "name": "base_launchpad",
+  "category": "structure",
+  "status": "EMPTY — fill this slot",
+  "mesh_file": "mesh/base_launchpad.dae",
+  "mesh_up_axis": "Z",
+  "mesh_units": "meters",
+  "is_static": true,
+  "license": "FILL",
+  "source_url": "FILL",
+  "notes": "FILL"
+}
