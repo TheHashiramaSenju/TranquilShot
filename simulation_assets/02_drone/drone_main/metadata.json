@@ -28,6 +28,7 @@
   ],
   "camera_mount_offset_m": [0.18, 0.0, -0.04],
   "license": "FILL",
-  "source_url": "FILL",
-  "notes": "FILL: motor positions are crucial for Gazebo physics plugin alignment"
+  "source_url": "https://free3d.com/3d-model/gneneric-quadcopter-drone-v1-9786.html",
+  "notes": "FILL: motor positions are crucial for Gazebo physics plugin alignment",
+  "format": "obj"
 }

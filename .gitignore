@@ -243,3 +243,4 @@ setup_control_systems.sh
 upgrade_tranquilshot_sim.sh
 create_simulation_assets.sh
 *.zip
+*.rar

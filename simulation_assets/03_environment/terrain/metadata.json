@@ -2,7 +2,7 @@
   "asset_id": "ENV_001",
   "name": "terrain",
   "category": "terrain",
-  "status": "EMPTY — fill this slot",
+  "status": "",
   "real_dimensions_m": {
     "size_x": 250,
     "size_y": 250
@@ -19,7 +19,7 @@
   "mesh_units": "meters",
   "is_static": true,
   "environment_type": "african_savannah",
-  "license": "FILL",
-  "source_url": "FILL",
+  "license": "Creative Commons Attribution-ShareAlike 4.0 Non-Commercial",
+  "source_url": "https://polyhaven.com/a/coast_sand_rocks_02",
   "notes": "Heightmap must be grayscale PNG, square, size must be (2^n)+1: 129, 257, or 513px"
 }
