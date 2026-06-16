@@ -5,11 +5,10 @@ from launch.actions import ExecuteProcess, TimerAction
 from launch_ros.actions import Node
 from launch.substitutions import Command
 
-
 def generate_launch_description():
     desc_share = get_package_share_directory('tranq_description')
-    world_file = os.path.join(desc_share, 'worlds', 'elephant_field.world')
-    xacro_file = os.path.join(desc_share, 'urdf', 'drone.urdf.xacro')
+    world_file  = os.path.join(desc_share, 'worlds', 'elephant_field.world')
+    xacro_file  = os.path.join(desc_share, 'urdf',   'drone.urdf.xacro')
 
     gz_sim = ExecuteProcess(
         cmd=['gz', 'sim', '-r', world_file],
@@ -20,8 +19,6 @@ def generate_launch_description():
     robot_state_pub = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
-        name='robot_state_publisher',
-        output='screen',
         parameters=[{
             'use_sim_time': True,
             'robot_description': Command(['xacro ', xacro_file])
@@ -39,6 +36,9 @@ def generate_launch_description():
             '/range_1@sensor_msgs/msg/LaserScan@gz.msgs.LaserScan',
             '/range_2@sensor_msgs/msg/LaserScan@gz.msgs.LaserScan',
             '/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock',
+            # ← THIS WAS MISSING — drone can't move without it
+            '/cmd_vel@geometry_msgs/msg/Twist]gz.msgs.Twist',
+            '/enable@std_msgs/msg/Bool]gz.msgs.Boolean',
         ],
         parameters=[{'use_sim_time': True}],
     )
@@ -46,20 +46,47 @@ def generate_launch_description():
     spawn = Node(
         package='ros_gz_sim',
         executable='create',
-        arguments=['-name', 'tranq_drone', '-topic', 'robot_description', '-x', '0.0', '-y', '0.0', '-z', '1.2'],
+        arguments=[
+            '-name', 'tranq_drone',
+            '-topic', 'robot_description',
+            '-x', '0.0', '-y', '0.0', '-z', '2.5'   # higher spawn = less clipping
+        ],
+        output='screen'
+    )
+
+    # Publishes Bool True to /enable → activates MulticopterVelocityControl
+    enable_motors = Node(
+        package='ros2topic_tools' if False else 'topic_tools',
+        executable='relay',
+        name='motor_enabler',
+        output='screen',
+        arguments=['/clock', '/enable'],
+        # We use a simple python publisher below instead
+    )
+
+    # One-shot enable publisher via ros2 topic pub
+    enable_drone = ExecuteProcess(
+        cmd=['ros2', 'topic', 'pub', '--once',
+             '/enable', 'std_msgs/msg/Bool', '{data: true}'],
         output='screen'
     )
 
     def cfg(pkg, file_name):
         return os.path.join(get_package_share_directory(pkg), 'config', file_name)
 
-    nodes = [
-        Node(package='tranq_detector', executable='detector_node', output='screen', parameters=[{'use_sim_time': True}, cfg('tranq_detector', 'detector_params.yaml')]),
-        Node(package='tranq_fusion', executable='fusion_node', output='screen', parameters=[{'use_sim_time': True}, cfg('tranq_fusion', 'fusion_params.yaml')]),
-        Node(package='tranq_tracker', executable='tracker_node', output='screen', parameters=[{'use_sim_time': True}, cfg('tranq_tracker', 'tracker_params.yaml')]),
-        Node(package='tranq_controller', executable='controller_node', output='screen', parameters=[{'use_sim_time': True}, cfg('tranq_controller', 'controller_params.yaml')]),
-        Node(package='tranq_actuator', executable='actuator_node', output='screen', parameters=[{'use_sim_time': True}, cfg('tranq_actuator', 'actuator_params.yaml')]),
-        Node(package='tranq_visualization', executable='viz_node', output='screen', parameters=[{'use_sim_time': True}, cfg('tranq_visualization', 'viz_params.yaml')]),
+    pipeline_nodes = [
+        Node(package='tranq_detector',      executable='detector_node',    output='screen',
+             parameters=[{'use_sim_time': True}, cfg('tranq_detector',      'detector_params.yaml')]),
+        Node(package='tranq_fusion',         executable='fusion_node',       output='screen',
+             parameters=[{'use_sim_time': True}, cfg('tranq_fusion',         'fusion_params.yaml')]),
+        Node(package='tranq_tracker',        executable='tracker_node',      output='screen',
+             parameters=[{'use_sim_time': True}, cfg('tranq_tracker',        'tracker_params.yaml')]),
+        Node(package='tranq_controller',     executable='controller_node',   output='screen',
+             parameters=[{'use_sim_time': True}, cfg('tranq_controller',     'controller_params.yaml')]),
+        Node(package='tranq_actuator',       executable='actuator_node',     output='screen',
+             parameters=[{'use_sim_time': True}, cfg('tranq_actuator',       'actuator_params.yaml')]),
+        Node(package='tranq_visualization',  executable='viz_node',          output='screen',
+             parameters=[{'use_sim_time': True}, cfg('tranq_visualization',  'viz_params.yaml')]),
     ]
 
     return LaunchDescription([
@@ -67,5 +94,6 @@ def generate_launch_description():
         robot_state_pub,
         bridge,
         TimerAction(period=3.0, actions=[spawn]),
-        TimerAction(period=5.0, actions=nodes),
+        TimerAction(period=5.0, actions=[enable_drone]),
+        TimerAction(period=6.0, actions=pipeline_nodes),
     ])
