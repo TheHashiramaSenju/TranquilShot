@@ -15,5 +15,6 @@
   <exec_depend>tranq_controller</exec_depend>
   <exec_depend>tranq_actuator</exec_depend>
   <exec_depend>tranq_drivers</exec_depend>
+  <exec_depend>tranq_visualization</exec_depend>
   <export><build_type>ament_cmake</build_type></export>
 </package>

@@ -1,0 +1,13 @@
+{
+  "asset_id": "ENV_ROCK_LOG_01",
+  "name": "log_01",
+  "category": "rock_debris",
+  "status": "EMPTY — fill this slot",
+  "mesh_file": "mesh/log_01.dae",
+  "mesh_up_axis": "Z",
+  "mesh_units": "meters",
+  "is_static": true,
+  "license": "FILL",
+  "source_url": "FILL",
+  "notes": "FILL"
+}

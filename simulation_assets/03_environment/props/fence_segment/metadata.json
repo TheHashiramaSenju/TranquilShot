@@ -1,0 +1,13 @@
+{
+  "asset_id": "ENV_PROP_FENCE_SEGMENT",
+  "name": "fence_segment",
+  "category": "prop",
+  "status": "EMPTY — fill this slot",
+  "mesh_file": "mesh/fence_segment.dae",
+  "mesh_up_axis": "Z",
+  "mesh_units": "meters",
+  "is_static": true,
+  "license": "FILL",
+  "source_url": "FILL",
+  "notes": "FILL"
+}

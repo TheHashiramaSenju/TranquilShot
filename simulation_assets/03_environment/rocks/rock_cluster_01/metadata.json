@@ -1,0 +1,13 @@
+{
+  "asset_id": "ENV_ROCK_ROCK_CLUSTER_01",
+  "name": "rock_cluster_01",
+  "category": "rock_debris",
+  "status": "EMPTY — fill this slot",
+  "mesh_file": "mesh/rock_cluster_01.dae",
+  "mesh_up_axis": "Z",
+  "mesh_units": "meters",
+  "is_static": true,
+  "license": "FILL",
+  "source_url": "FILL",
+  "notes": "FILL"
+}

@@ -1,0 +1,13 @@
+{
+  "asset_id": "ENV_PROP_RANGER_POST",
+  "name": "ranger_post",
+  "category": "prop",
+  "status": "EMPTY — fill this slot",
+  "mesh_file": "mesh/ranger_post.dae",
+  "mesh_up_axis": "Z",
+  "mesh_units": "meters",
+  "is_static": true,
+  "license": "FILL",
+  "source_url": "FILL",
+  "notes": "FILL"
+}

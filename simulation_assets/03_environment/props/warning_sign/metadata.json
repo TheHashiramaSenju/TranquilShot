@@ -1,0 +1,13 @@
+{
+  "asset_id": "ENV_PROP_WARNING_SIGN",
+  "name": "warning_sign",
+  "category": "prop",
+  "status": "EMPTY — fill this slot",
+  "mesh_file": "mesh/warning_sign.dae",
+  "mesh_up_axis": "Z",
+  "mesh_units": "meters",
+  "is_static": true,
+  "license": "FILL",
+  "source_url": "FILL",
+  "notes": "FILL"
+}
