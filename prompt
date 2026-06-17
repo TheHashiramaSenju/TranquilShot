@@ -1,0 +1,88 @@
+https://www.perplexity.ai/search/i-am-about-to-do-control-syste-rpxpNLitTG.jLj7jUVpxLQ
+
+Create a Gazebo world for the TranquilShot simulation that is simple, readable, and reviewer-friendly.
+The scene must communicate “this is an elephant target” immediately, even if the geometry is low-poly.
+Do not use plain unlabeled boxes as the main explanation of the target.
+</task>
+
+<context>
+This world is for a robotics demo in Gazebo.
+The reviewers must be able to understand the scene at a glance.
+The current scene has:
+- one near target,
+- one far target,
+- one poster/placard,
+- and a drone spawn pad.
+
+The goal is not photorealism.
+The goal is visual clarity, strong target recognition, and clean robotics-simulation presentation.
+</context>
+
+<requirements>
+1. Model the elephant targets so they are instantly recognizable as elephants.
+2. Use low-poly or stylized models if needed, but include at least one obvious elephant cue:
+   - trunk silhouette,
+   - ear shape,
+   - head-body separation,
+   - tusk hint,
+   - or a clearly labeled class placard.
+3. Keep collision geometry simple and efficient.
+4. Keep the world clean and uncluttered.
+5. Preserve clear spacing between:
+   - spawn pad,
+   - near elephant,
+   - far elephant,
+   - and poster.
+6. Make the scene look like a robotics test environment, not a toy scene.
+7. Prefer readable geometry over decorative detail.
+8. If a full elephant mesh is not available, build a convincing proxy from primitive shapes that still reads as an elephant.
+9. Add reviewer-facing clarity:
+   - visible naming in the world tree,
+   - obvious target orientation,
+   - and a poster/marker that explains the class.
+</requirements>
+
+<style>
+Art direction:
+- minimal but understandable,
+- educational demo aesthetic,
+- no random clutter,
+- no exaggerated sci-fi effects,
+- no photorealism requirement,
+- no plain anonymous boxes unless they are secondary collision proxies hidden inside a proper visible model.
+
+Visual hierarchy:
+- targets should be the focus,
+- poster should support understanding,
+- spawn pad should be subtle,
+- ground should stay neutral and non-distracting.
+</style>
+
+<deliverables>
+Return:
+1. The world file structure.
+2. The SDF or model XML needed.
+3. Any referenced model files.
+4. A short explanation of how the design communicates “elephant” clearly to reviewers.
+</deliverables>
+
+<output_format>
+Provide the result in this order:
+1. File tree
+2. World/model code
+3. Explanation
+4. Any assumptions or missing assets
+</output_format>
+
+<constraints>
+- Use Gazebo-compatible SDF conventions.
+- Avoid complex dependencies unless necessary.
+- Do not output vague suggestions.
+- Do not output placeholder text like “TODO”.
+- Prefer something that can be dropped into the repo and run.
+</constraints>
+If you want it stronger
+If the model should look even better to reviewers, add this line under <requirements>:
+
+xml
+10. Make the near elephant visually richer than the far elephant so the camera has a clear primary subject and a background subject.
