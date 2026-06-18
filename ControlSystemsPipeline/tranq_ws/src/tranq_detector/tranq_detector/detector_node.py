@@ -5,6 +5,7 @@ from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
 from tranq_interfaces.msg import Detection
 from tranq_detector.model_loader import ModelLoader
+import numpy as np
 
 class DetectorNode(Node):
     def __init__(self):
@@ -24,10 +25,6 @@ class DetectorNode(Node):
 
         self._bridge = CvBridge()
         self._loader = ModelLoader(model_path, backend, target_cls, conf_thresh)
-        if getattr(self._loader, '_fallback_mode', False):
-            self.get_logger().warn('Detector running in fallback mode — ultralytics/model unavailable, using simulated detection.')
-        else:
-            self.get_logger().info(f'Detector using backend={backend} model={model_path}')
 
         sensor_qos = QoSProfile(
             reliability=ReliabilityPolicy.BEST_EFFORT,

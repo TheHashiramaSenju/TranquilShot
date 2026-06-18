@@ -1,1 +1,1 @@
-launch:launch_ros:tranq_actuator:tranq_controller:tranq_description:tranq_detector:tranq_drivers:tranq_fusion:tranq_tracker:tranq_visualization
+launch:launch_ros:tranq_actuator:tranq_controller:tranq_description:tranq_detector:tranq_drivers:tranq_fusion:tranq_tracker
