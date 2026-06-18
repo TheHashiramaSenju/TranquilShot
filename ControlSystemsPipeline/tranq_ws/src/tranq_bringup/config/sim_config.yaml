@@ -1,18 +1,14 @@
-# sim_config.yaml â€” TranquilShot Simulation Parameters
-# FIX: Removed hardcoded absolute path (/media/notshadow/d5dd988b-...)
-#      that crashed on any machine other than the original developer's.
-#      model_path is now empty by default and can be overridden via:
-#      ros2 launch tranq_bringup sim.launch.py model_path:=/path/to/best.pt
+# sim_config.yaml — TranquilShot Simulation Parameters
 
-use_sim_time: true
+/**:
+  ros__parameters:
+    use_sim_time: true
 
 detector_node:
   ros__parameters:
-    # Set via CLI: ros2 launch tranq_bringup sim.launch.py model_path:=<path>
-    # Default searches relative to package share (set in sim.launch.py)
     model_path: ""
     backend: "pytorch"
-    device: "cuda"        # Automatically falls back to CPU if no GPU
+    device: "cuda"
     confidence_threshold: 0.45
     nms_threshold: 0.5
     image_topic: "/camera/image_raw"
