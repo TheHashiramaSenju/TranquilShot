@@ -1,5 +1,0 @@
-actuator_node:
-  ros__parameters:
-    fire_range_m: 15.0
-    crosshair_tolerance_px: 5.0
-    default_armed: false

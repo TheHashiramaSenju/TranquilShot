@@ -1,6 +1,0 @@
-viz_node:
-  ros__parameters:
-    window_name: "TranquilShot Vision HUD"
-    show_window: true
-    publish_annotated: true
-    image_topic: "/camera/image_raw"

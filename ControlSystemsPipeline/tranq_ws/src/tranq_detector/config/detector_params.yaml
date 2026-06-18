@@ -1,9 +1,0 @@
-detector_node:
-  ros__parameters:
-    model_path: "/media/notshadow/d5dd988b-c393-4302-aa45-32bcfc8463c2/WorkFolder/TranquilShot/ControlSystemsPipeline/tranq_ws/src/tranq_detector/models/best.pt"
-    backend: "ultralytics"
-    confidence_threshold: 0.70
-    input_width: 640
-    input_height: 640
-    target_class_id: 0
-    use_coral_tpu: false

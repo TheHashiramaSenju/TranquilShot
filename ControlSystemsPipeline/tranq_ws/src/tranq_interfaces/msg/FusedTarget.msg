@@ -1,9 +1,0 @@
-Detection detection
-float32 depth_1
-float32 depth_2
-float32 depth_variance
-bool    gate_confidence
-bool    gate_depth
-bool    gate_size
-bool    gate_motion
-bool    is_valid

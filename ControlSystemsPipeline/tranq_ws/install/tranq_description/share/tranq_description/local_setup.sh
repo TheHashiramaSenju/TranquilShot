@@ -1,1 +1,0 @@
-/media/notshadow/d5dd988b-c393-4302-aa45-32bcfc8463c2/WorkFolder/TranquilShot/ControlSystemsPipeline/tranq_ws/build/tranq_description/ament_cmake_environment_hooks/local_setup.sh
