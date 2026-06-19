@@ -236,14 +236,4 @@ ComputerVisionPipeline/dataset_preprocessed.zip
 ComputerVisionPipeline/annotation_dataset
 ComputerVisionPipeline/autoannotatelogs
 ComputerVisionPipeline/dataset_raw
-fix_and_build.sh
-fix_and_build2.sh
-fix_and_build3.sh
-setup_control_systems.sh
-upgrade_tranquilshot_sim.sh
-create_simulation_assets.sh
-*.zip
-*.rar
-fix_drone_physics.sh
-fix_model_path.sh
-fix_launch_and_rebuild.sh
+=
