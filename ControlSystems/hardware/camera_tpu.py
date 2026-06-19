@@ -5,7 +5,7 @@ import numpy as np
 import cv2
 
 from pycoral.utils.dataset import read_label_file
-from pyocoral.utils.elephant import make_interpreter
+from pycoral.utils.elephant import make_interpreter
 from pycoral.adapters import common, detect 
 
 
