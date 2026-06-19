@@ -1,83 +1,52 @@
-from __future__ import annotations
-from dataclasses import dataclass
-from typing import Optional
-import numpy as np
 import cv2
-
-from pycoral.utils.dataset import read_label_file
-from pycoral.utils.elephant import make_interpreter
-from pycoral.adapters import common, detect 
-
-
+import time
 from config import CFG
+from dataclasses import dataclass
 
 @dataclass
 class Detection:
-    cx : int 
-    cy : int
-    confidence : float
-    bbox_w : int
-    bbox_h : int
-    
+    label: str
+    confidence: float
+    center_x: int
+    center_y: int
 
 class TPUDetector:
     def __init__(self):
-        self.labels = read_label_file(str(CFG.vision.LABELS_PATH))
-        self.interpreter = make_interpreter(str(CFG.vision.MODEL_PATH))
-        self.interpreter.allocate_tensors()
-        self.input_size = common.input_size(self.interpreter)
-        
+        print("[INIT] Laptop Vision Mode Active (Bypassing PyCoral).")
+        # Turn on the laptop webcam
         self.cap = cv2.VideoCapture(CFG.hardware.CAMERA_INDEX)
-        
-        if not self.cap.isOpened():
-            raise RuntimeError(f"The camera cannot be opened {CFG.hardware.CAMERA_INDEX}")
-        
-        self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, CFG.vision.FRAME_WIDTH)
-        self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, CFG.vision.FRAME_HEIGHT)
-        self.target_label = CFG.vision.TARGET_LABEL.lower()
-        
-    def detect_target(self) -> Optional[Detection]:
-        ret, frame = self.cap.read()
-        if not ret  :
-            return None
-        
-        rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        resized = cv2.resize(rgb, self.input_size)
-        common.set_input(self.interpreter, resized)
-        self.interpreter.invoke()
-        
-        objs = detect.get_objects(
-            self.interpreter,
-            score_threshold=CFG.vision.CONFIDENCE_THRESHOLD
-        )
-        
-        best: Optional[detect.Object] = None ###
-        for obj in objs :
-            label = self.labels.get(obj.id, "").lower()
-            if label != self.target_label:
-                continue
-            if best is None or obj.score > best.score:
-                best = obj
-                
-        if best is None:
-            return None 
-        
-        scale_x = CFG.vision.FRAME_WIDTH / self.input_size[0]
-        scale_y = CFG.vision.FRAME_HEIGHT / self.input_size[0]
-        
-        x0 = int(best.bbox.xmin * scale_x)
-        y0 = int(best.bbox.ymin * scale_y)
-        x1 = int(best.bbox.xmax * scale_x)
-        y1 = int(best.bbox.ymax * scale_y)
-        
-        return Detection(
-            cx=(x0 + x1) // 2,
-            cy = (y0 + y1) // 2,
-            confidence  = float(best.score), 
-            bbox_w=x1 - x0,
-            bbox_h=y1 - y0
-        )
+        self.mock_frame_counter = 0
 
-    def close(self) -> None:
-        if self._cap.isOpened():
-            self._cap.release()
+    def detect_target(self):
+        """
+        Since we don't have the Coral chip on the laptop, 
+        we will simulate a target moving across the screen to test the flight math.
+        """
+        ret, frame = self.cap.read()
+        if not ret:
+            return None
+
+        # Show the webcam feed on your screen so you can see it working
+        cv2.imshow("Drone Camera Feed", frame)
+        cv2.waitKey(1)
+
+        self.mock_frame_counter += 1
+        
+        # Simulate an elephant appearing after 50 frames (about 2 seconds)
+        if self.mock_frame_counter > 50 and self.mock_frame_counter < 300:
+            # Simulate the elephant starting on the right side of the screen (X=500)
+            # and slowly moving toward the center (X=320)
+            simulated_x = 500 - ((self.mock_frame_counter - 50) * 0.5)
+            
+            return Detection(
+                label=CFG.vision.TARGET_LABEL,
+                confidence=0.88,
+                center_x=int(simulated_x),
+                center_y=CFG.vision.CENTER_Y
+            )
+        
+        return None
+
+    def close(self):
+        self.cap.release()
+        cv2.destroyAllWindows()
