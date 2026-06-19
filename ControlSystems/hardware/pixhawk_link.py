@@ -7,7 +7,7 @@ from utils.math_helpers import clamp
 
 class PixHawkController:
     def __init__(self):
-        self.conn = mavutil.mavlink.connection(
+        self.conn = mavutil.mavlink_connection(
             CFG.hardware.FC_CONNECTION_STRING,
             baud = CFG.hardware.FC_BAUD_RATE
         )
@@ -32,7 +32,7 @@ class PixHawkController:
             0, 0, 0, 0, 0, 0, 0, target_altitude_m
         )
         
-        self.wait_attitude(target_altitude_m * 0.92)
+        self.wait_altitude(target_altitude_m * 0.92)
         
     def _wait_altitude(self, target_m: float) -> None:
         while True:
@@ -106,7 +106,7 @@ class PixHawkController:
         )
 
     def needs_velocity_refresh(self) -> bool:
-        return (time.time() - self._last_velocity_send) >= CFG.timers.VELOCITY_RESEND_INTERVAL_S
+        return (time.time() - self.last_velocity_send) >= CFG.timers.VELOCITY_RESEND_INTERVAL_S
 
     def close(self) -> None:
         try:

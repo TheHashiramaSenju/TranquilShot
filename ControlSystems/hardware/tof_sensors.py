@@ -9,7 +9,7 @@ class DistanceSensor:
             i2c_address = CFG.hardware.TOF_I2C_ADDRESS
         )
         
-        self.tof_open()
+        self.tof.open()
         self.tof.set_timing(
             CFG.hardware.TOF_TIMING_BUDGET_MS * 1000,
             CFG.hardware.TOF_TIMING_BUDGET_MS

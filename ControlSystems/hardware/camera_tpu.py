@@ -11,6 +11,7 @@ from pycoral.adapters import common, detect
 
 from config import CFG
 
+@dataclass
 class Detection:
     cx : int 
     cy : int
@@ -23,7 +24,7 @@ class TPUDetector:
     def __init__(self):
         self.labels = read_label_file(str(CFG.vision.LABELS_PATH))
         self.interpreter = make_interpreter(str(CFG.vision.MODEL_PATH))
-        self.interpreter.allocate.tensors()
+        self.interpreter.allocate_tensors()
         self.input_size = common.input_size(self.interpreter)
         
         self.cap = cv2.VideoCapture(CFG.hardware.CAMERA_INDEX)
@@ -36,7 +37,7 @@ class TPUDetector:
         self.target_label = CFG.vision.TARGET_LABEL.lower()
         
     def detect_target(self) -> Optional[Detection]:
-        ret, frame = self._cap.read()
+        ret, frame = self.cap.read()
         if not ret  :
             return None
         
@@ -46,7 +47,7 @@ class TPUDetector:
         self.interpreter.invoke()
         
         objs = detect.get_objects(
-            self._interpreter,
+            self.interpreter,
             score_threshold=CFG.vision.CONFIDENCE_THRESHOLD
         )
         
@@ -58,7 +59,7 @@ class TPUDetector:
             if best is None or obj.score > best.score:
                 best = obj
                 
-        if best in None:
+        if best is None:
             return None 
         
         scale_x = CFG.vision.FRAME_WIDTH / self.input_size[0]
