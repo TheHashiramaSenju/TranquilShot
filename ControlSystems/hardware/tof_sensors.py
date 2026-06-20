@@ -1,4 +1,3 @@
-import smbus2
 import VL53L1X
 from config import CFG 
 

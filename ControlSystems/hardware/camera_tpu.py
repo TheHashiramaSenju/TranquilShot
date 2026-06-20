@@ -1,5 +1,5 @@
 import cv2
-import time
+from ultralytics import YOLO
 from config import CFG
 from dataclasses import dataclass
 
@@ -12,40 +12,50 @@ class Detection:
 
 class TPUDetector:
     def __init__(self):
-        print("[INIT] Laptop Vision Mode Active (Bypassing PyCoral).")
-        # Turn on the laptop webcam
+        print("[INIT] Laptop Vision Mode Active (Using YOLO & best.pt).")
+        # Load your original PyTorch model for the laptop test
+        # We temporarily point this to best.pt instead of the tflite model
+        model_path = str(CFG.vision.MODEL_PATH).replace('target_edgetpu.tflite', 'best.pt')
+        self.model = YOLO(model_path) 
+        
+        
         self.cap = cv2.VideoCapture(CFG.hardware.CAMERA_INDEX)
-        self.mock_frame_counter = 0
 
     def detect_target(self):
-        """
-        Since we don't have the Coral chip on the laptop, 
-        we will simulate a target moving across the screen to test the flight math.
-        """
         ret, frame = self.cap.read()
         if not ret:
             return None
 
-        # Show the webcam feed on your screen so you can see it working
-        cv2.imshow("Drone Camera Feed", frame)
+        # 1. Run the AI on the live webcam frame
+        results = self.model(frame, verbose=False)
+        
+        # 2. Show the webcam feed with the AI's bounding boxes drawn on it!
+        annotated_frame = results[0].plot()
+        cv2.imshow("Drone AI View", annotated_frame)
         cv2.waitKey(1)
 
-        self.mock_frame_counter += 1
+        # 3. Parse the results to find our target
+        best_target = None
         
-        # Simulate an elephant appearing after 50 frames (about 2 seconds)
-        if self.mock_frame_counter > 50 and self.mock_frame_counter < 300:
-            # Simulate the elephant starting on the right side of the screen (X=500)
-            # and slowly moving toward the center (X=320)
-            simulated_x = 500 - ((self.mock_frame_counter - 50) * 0.5)
-            
-            return Detection(
-                label=CFG.vision.TARGET_LABEL,
-                confidence=0.88,
-                center_x=int(simulated_x),
-                center_y=CFG.vision.CENTER_Y
-            )
-        
-        return None
+        for box in results[0].boxes:
+            class_id = int(box.cls[0])
+            label = self.model.names[class_id].lower()
+            confidence = float(box.conf[0])
+
+            # Is it an elephant? Is it confident enough?
+            if label == CFG.vision.TARGET_LABEL and confidence >= CFG.vision.CONFIDENCE_THRESHOLD:
+                
+                # Get bounding box coordinates and calculate the exact center pixel
+                x1, y1, x2, y2 = box.xyxy[0].tolist()
+                cx = int((x1 + x2) / 2)
+                cy = int((y1 + y2) / 2)
+                
+                # If there are multiple elephants, lock onto the most confident one
+                if best_target is None or confidence > best_target.confidence:
+                    best_target = Detection(label, confidence, cx, cy)
+
+        # Send the exact coordinates back to main.py
+        return best_target
 
     def close(self):
         self.cap.release()
