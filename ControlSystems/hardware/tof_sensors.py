@@ -1,34 +1,21 @@
-import VL53L1X
+# hardware/tof_sensors.py (Laptop Testing Version)
+import time
 from config import CFG 
 
 class DistanceSensor:
     def __init__(self):
-        self.tof = VL53L1X.VL53L1X(
-            i2c_bus = CFG.hardware.TOF_I2C_BUS,
-            i2c_address = CFG.hardware.TOF_I2C_ADDRESS
-        )
-        
-        self.tof.open()
-        self.tof.set_timing(
-            CFG.hardware.TOF_TIMING_BUDGET_MS * 1000,
-            CFG.hardware.TOF_TIMING_BUDGET_MS
-        )
-        
-        self.tof.start_ranging(2)
-        self.last_valid_mm : int = 0 
+        print("[INIT] Laptop Depth Mode Active (Bypassing I2C VL53L1X).")
+        # We hardcode 10000 mm (10 meters) so it always falls safely 
+        # within your MIN (5m) and MAX (15m) firing distances.
+        self.last_valid_mm : int = 10000 
     
     def get_distance_mm(self) -> int:
-        try:
-            raw = self.tof.get_distance()
-            if raw > 0:
-                self.last_valid_mm = raw
-            return self.last_valid_mm
-        except OSError:
-            return self.last_valid_mm
+        """
+        Simulates returning a perfect 10-meter distance measurement.
+        This tricks main.py into thinking the target is safely in range.
+        """
+        return self.last_valid_mm
     
     def close(self) -> None:
-        try :
-            self.tof.stop_ranging()
-            self.tof.close()
-        except Exception:
-            pass 
+        # Nothing to close since we aren't using physical I2C wires
+        pass

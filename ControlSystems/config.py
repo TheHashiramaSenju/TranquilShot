@@ -5,14 +5,14 @@ BASE_DIR = Path(__file__).resolve().parent
 
 @dataclass(frozen=True)
 class HardwareConfig:
-    FC_CONNECTION_STRING: str = "/dev/ttyAMA0"
+    FC_CONNECTION_STRING: str = "tcp:127.0.0.1:5760"
     FC_BAUD_RATE: int = 921600
     FC_HEARTBEAT_TIMEOUT: int = 10
     TOF_I2C_BUS: int = 1
     TOF_I2C_ADDRESS: int = 0x29
     TOF_TIMING_BUDGET_MS: int = 50
     PAYLOAD_SERVO_CHANNEL: int = 9
-    CAMERA_INDEX: int = 0
+    CAMERA_INDEX: int = 3
 
 @dataclass(frozen=True)
 class VisionConfig:

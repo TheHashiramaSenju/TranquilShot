@@ -27,7 +27,7 @@ class TPUDetector:
             return None
 
         # 1. Run the AI on the live webcam frame
-        results = self.model(frame, verbose=False)
+        results = self.model(frame, verbose=False, device='cpu')
         
         # 2. Show the webcam feed with the AI's bounding boxes drawn on it!
         annotated_frame = results[0].plot()
